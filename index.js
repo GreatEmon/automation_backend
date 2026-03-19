@@ -45,11 +45,11 @@ app.post('/api/webhooks/woocommerce', async (req, res) => {
     // }
 
     // 4. DATA VALIDATION
-    const data = req.body;
-    if (!data || !data.billing) {
-      console.error('❌ Invalid Order Data Structure');
-      return res.status(400).send('Invalid Data');
-    }
+    // const data = req.body;
+    // if (!data || !data.billing) {
+    //   console.error('❌ Invalid Order Data Structure');
+    //   return res.status(400).send('Invalid Data');
+    // }
 
     // 5. DATABASE OPERATION
     const db = await connectDB();
