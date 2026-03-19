@@ -46,33 +46,34 @@ app.post('/api/webhooks/woocommerce', async (req, res) => {
 
     // 4. DATA VALIDATION
     const data = req.body;
+    console.log(data)
     if (!data || !data.billing) {
       console.error('❌ Invalid Order Data Structure');
       return res.status(400).send('Invalid Data');
     }
 
     // 5. DATABASE OPERATION
-    const db = await connectDB();
-    const newOrder = {
-      order_id: data.id,
-      source_domain: req.headers['x-wc-webhook-source'] || 'unknown',
-      customer: {
-        name: `${data.billing.first_name} ${data.billing.last_name}`,
-        phone: data.billing.phone,
-        address: `${data.billing.address_1}, ${data.billing.city}`,
-      },
-      items: data.line_items?.map(item => ({
-        name: item.name,
-        qty: item.quantity,
-        sku: item.sku
-      })) || [],
-      total: parseFloat(data.total),
-      status: 'Pending',
-      fraud_status: 'Unchecked',
-      created_at: new Date()
-    };
+    // const db = await connectDB();
+    // const newOrder = {
+    //   order_id: data.id,
+    //   source_domain: req.headers['x-wc-webhook-source'] || 'unknown',
+    //   customer: {
+    //     name: `${data.billing.first_name} ${data.billing.last_name}`,
+    //     phone: data.billing.phone,
+    //     address: `${data.billing.address_1}, ${data.billing.city}`,
+    //   },
+    //   items: data.line_items?.map(item => ({
+    //     name: item.name,
+    //     qty: item.quantity,
+    //     sku: item.sku
+    //   })) || [],
+    //   total: parseFloat(data.total),
+    //   status: 'Pending',
+    //   fraud_status: 'Unchecked',
+    //   created_at: new Date()
+    // };
 
-    const result = await db.collection('all_orders').insertOne(newOrder);
+    // const result = await db.collection('all_orders').insertOne(newOrder);
     console.log(`🚀 Order ${data.id} saved successfully!`);
     
     res.status(201).json({ success: true });
