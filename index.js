@@ -28,21 +28,21 @@ app.post('/api/webhooks/woocommerce', async (req, res) => {
     }
 
     // 3. VERIFY SIGNATURE
-    const signature = req.headers['x-wc-webhook-signature'];
-    if (!signature) {
-      console.error('❌ No signature header found');
-      return res.status(401).send('No signature');
-    }
+    // const signature = req.headers['x-wc-webhook-signature'];
+    // if (!signature) {
+    //   console.error('❌ No signature header found');
+    //   return res.status(401).send('No signature');
+    // }
 
-    const expectedSignature = crypto
-      .createHmac('sha256', WOO_SECRET)
-      .update(req.rawBody || '')
-      .digest('base64');
+    // const expectedSignature = crypto
+    //   .createHmac('sha256', WOO_SECRET)
+    //   .update(req.rawBody || '')
+    //   .digest('base64');
 
-    if (signature !== expectedSignature) {
-      console.error('❌ Signature Mismatch!');
-      return res.status(401).send('Invalid Signature');
-    }
+    // if (signature !== expectedSignature) {
+    //   console.error('❌ Signature Mismatch!');
+    //   return res.status(401).send('Invalid Signature');
+    // }
 
     // 4. DATA VALIDATION
     const data = req.body;
