@@ -46,7 +46,6 @@ app.post('/api/webhooks/woocommerce', async (req, res) => {
 
     // 4. DATA VALIDATION
     const data = req.body;
-    console.log(data)
     if (!data || !data.billing) {
       console.error('❌ Invalid Order Data Structure');
       return res.status(400).send('Invalid Data');
@@ -74,7 +73,7 @@ app.post('/api/webhooks/woocommerce', async (req, res) => {
     // };
 
     // const result = await db.collection('all_orders').insertOne(newOrder);
-    console.log(`🚀 Order ${data.id} saved successfully!`);
+    console.log(data);
     
     res.status(201).json({ success: true });
 
